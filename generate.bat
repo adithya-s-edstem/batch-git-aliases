@@ -95,8 +95,95 @@ echo @echo off > tg.bat
 echo git tag >> tg.bat
 echo Generated: tg.bat
 
+REM Create rb.bat - rebase (usage: rb branch-name or rb -i HEAD~3)
+echo @echo off > rb.bat
+echo git rebase %%* >> rb.bat
+echo Generated: rb.bat
+
+REM Create rbc.bat - continue rebase
+echo @echo off > rbc.bat
+echo git rebase --continue >> rbc.bat
+echo Generated: rbc.bat
+
+REM Create rba.bat - abort rebase
+echo @echo off > rba.bat
+echo git rebase --abort >> rba.bat
+echo Generated: rba.bat
+
+REM Create cp.bat - cherry-pick (usage: cp commit-hash)
+echo @echo off > cp.bat
+echo git cherry-pick %%* >> cp.bat
+echo Generated: cp.bat
+
+REM Create cb.bat - create and switch to new branch (usage: cb new-branch-name)
+echo @echo off > cb.bat
+echo git checkout -b %%* >> cb.bat
+echo Generated: cb.bat
+
+REM Create shl.bat - list stashes
+echo @echo off > shl.bat
+echo git stash list >> shl.bat
+echo Generated: shl.bat
+
+REM Create shd.bat - drop stash (usage: shd stash@{0})
+echo @echo off > shd.bat
+echo git stash drop %%* >> shd.bat
+echo Generated: shd.bat
+
+REM Create shc.bat - clear all stashes
+echo @echo off > shc.bat
+echo git stash clear >> shc.bat
+echo Generated: shc.bat
+
+REM Create sw.bat - show specific commit (usage: sw commit-hash)
+echo @echo off > sw.bat
+echo git show %%* >> sw.bat
+echo Generated: sw.bat
+
+REM Create bl.bat - blame (usage: bl filename)
+echo @echo off > bl.bat
+echo git blame %%* >> bl.bat
+echo Generated: bl.bat
+
+REM Create rl.bat - reflog
+echo @echo off > rl.bat
+echo git reflog >> rl.bat
+echo Generated: rl.bat
+
+REM Create clean.bat - clean untracked files (usage: clean -f)
+echo @echo off > clean.bat
+echo git clean %%* >> clean.bat
+echo Generated: clean.bat
+
+REM Create ls.bat - short log (last 10 commits)
+echo @echo off > ls.bat
+echo git log --oneline -10 >> ls.bat
+echo Generated: ls.bat
+
+REM Create lp.bat - log with patches
+echo @echo off > lp.bat
+echo git log -p %%* >> lp.bat
+echo Generated: lp.bat
+
+REM Create df.bat - diff staged changes
+echo @echo off > df.bat
+echo git diff --staged >> df.bat
+echo Generated: df.bat
+
+REM Create amend.bat - amend last commit
+echo @echo off > amend.bat
+echo git commit --amend >> amend.bat
+echo Generated: amend.bat
+
+REM Create undo.bat - undo last commit (keep changes)
+echo @echo off > undo.bat
+echo git reset --soft HEAD~1 >> undo.bat
+echo Generated: undo.bat
+
 echo.
 echo All git alias batch files have been created!
+echo.
+echo Total: 35 git command aliases generated for faster git operations!
 echo.
 echo Copy these .bat files to a directory in your PATH to use them as commands:
 echo - pl.bat            : git pull
@@ -117,6 +204,23 @@ echo - cl.bat            : git clone repo-url
 echo - ig.bat            : git init
 echo - rm.bat            : git remote -v
 echo - tg.bat            : git tag
+echo - rb.bat            : git rebase branch-name or -i HEAD~3
+echo - rbc.bat           : git rebase --continue
+echo - rba.bat           : git rebase --abort
+echo - cp.bat            : git cherry-pick commit-hash
+echo - cb.bat            : git checkout -b new-branch-name
+echo - shl.bat           : git stash list
+echo - shd.bat           : git stash drop stash@{0}
+echo - shc.bat           : git stash clear
+echo - sw.bat            : git show commit-hash
+echo - bl.bat            : git blame filename
+echo - rl.bat            : git reflog
+echo - clean.bat         : git clean (with parameters)
+echo - ls.bat            : git log --oneline -10
+echo - lp.bat            : git log -p
+echo - df.bat            : git diff --staged
+echo - amend.bat         : git commit --amend
+echo - undo.bat          : git reset --soft HEAD~1
 echo.
 echo Usage examples:
 echo   st                  (instead of git status)
@@ -125,5 +229,12 @@ echo   c "my changes"      (instead of git commit -m "my changes")
 echo   co main             (instead of git checkout main)
 echo   pl                  (instead of git pull)
 echo   ps                  (instead of git push)
+echo   cb feature-branch   (instead of git checkout -b feature-branch)
+echo   rb -i HEAD~3        (instead of git rebase -i HEAD~3)
+echo   cp abc123           (instead of git cherry-pick abc123)
+echo   shl                 (instead of git stash list)
+echo   sw abc123           (instead of git show abc123)
+echo   amend               (instead of git commit --amend)
+echo   undo                (instead of git reset --soft HEAD~1)
 echo.
 pause
