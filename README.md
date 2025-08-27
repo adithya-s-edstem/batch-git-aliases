@@ -1,6 +1,6 @@
 # batch-git-aliases
 
-> **🤖 Copilot-Managed Repository**: This repository is fully managed by GitHub Copilot as a testing ground for AI-powered development workflows. All code, commits, pull requests, CI pipelines, and documentation are generated and maintained by Copilot to demonstrate autonomous development capabilities. See [PR #1](../../pull/1) as a sample of Copilot's autonomous development process.
+> **🤖 Copilot-Managed Repository**: This repository is fully managed by GitHub Copilot as a testing ground for AI-powered development workflows. All code, commits, pull requests, CI pipelines, and documentation are generated and maintained by Copilot to demonstrate autonomous development capabilities. See [PR #1](https://github.com/adithya-s-edstem/batch-git-aliases/pull/1) as a sample of Copilot's autonomous development process.
 
 ## Related Projects
 
