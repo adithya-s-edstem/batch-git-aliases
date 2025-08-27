@@ -8,10 +8,12 @@ See [bash-things](https://github.com/adithya-s-edstem/bash-things) for a human c
 
 A comprehensive collection of Windows batch file shortcuts for common Git commands. This script generates 35 tiny batch files that serve as quick aliases for Git operations.
 
+**All generated `.bat` files are organized in a dedicated `aliases/` directory for easy selection and copying.**
+
 ## Quick Start
 
-1. Run `generate.bat` to create all alias files
-2. Copy the generated `.bat` files to a directory in your PATH
+1. Run `generate.bat` to create all alias files in the `aliases/` directory
+2. Copy all `.bat` files from the `aliases/` folder to a directory in your PATH
 3. Use short commands instead of full git commands (e.g., `st` instead of `git status`)
 
 ## Commands
@@ -129,3 +131,10 @@ rl                    # Show reflog
 bl file.txt           # Blame specific file
 df                    # Show staged changes
 ```
+
+## Installation
+
+1. **Generate the aliases**: Run `generate.bat` from the repository directory
+2. **Locate the files**: All 35 `.bat` files will be created in the `aliases/` folder
+3. **Install the aliases**: Select all files from the `aliases/` folder and copy them to a directory in your PATH (e.g., `C:\Windows\System32` or a custom PATH directory)
+4. **Start using**: Open a new command prompt and use the short aliases like `st` instead of `git status`
