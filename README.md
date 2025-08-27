@@ -131,10 +131,3 @@ rl                    # Show reflog
 bl file.txt           # Blame specific file
 df                    # Show staged changes
 ```
-
-## Installation
-
-1. **Generate the aliases**: Run `generate.bat` from the repository directory
-2. **Locate the files**: All 35 `.bat` files will be created in the `aliases/` folder
-3. **Install the aliases**: Select all files from the `aliases/` folder and copy them to a directory in your PATH (e.g., `C:\Windows\System32` or a custom PATH directory)
-4. **Start using**: Open a new command prompt and use the short aliases like `st` instead of `git status`
