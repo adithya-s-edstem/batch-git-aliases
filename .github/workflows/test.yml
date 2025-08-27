@@ -70,11 +70,12 @@ jobs:
 
     - name: Count generated files
       run: |
-        $batFiles = Get-ChildItem -Filter "*.bat" -Exclude "generate.bat" | Measure-Object
-        Write-Host "Total generated .bat files: $($batFiles.Count)"
+        $allBatFiles = Get-ChildItem -Filter "*.bat"
+        $generatedFiles = $allBatFiles | Where-Object { $_.Name -ne "generate.bat" }
+        Write-Host "Total generated .bat files: $($generatedFiles.Count)"
         
-        if ($batFiles.Count -ne 35) {
-          Write-Host "Expected 35 files but found $($batFiles.Count)" -ForegroundColor Red
+        if ($generatedFiles.Count -ne 35) {
+          Write-Host "Expected 35 files but found $($generatedFiles.Count)" -ForegroundColor Red
           exit 1
         }
         
