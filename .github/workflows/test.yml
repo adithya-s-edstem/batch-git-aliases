@@ -20,7 +20,7 @@ jobs:
         
     - name: Verify generated files
       run: |
-        # Check if expected .bat files were created
+        # Check if expected .bat files were created in aliases directory
         $expectedFiles = @(
           'pl.bat', 'ps.bat', 'st.bat', 'a.bat', 'c.bat', 'l.bat', 'br.bat', 'co.bat', 'd.bat', 'rs.bat',
           'sh.bat', 'pop.bat', 'f.bat', 'm.bat', 'cl.bat', 'ig.bat', 'rm.bat', 'tg.bat',
@@ -30,17 +30,18 @@ jobs:
         
         $missingFiles = @()
         foreach ($file in $expectedFiles) {
-          if (-not (Test-Path $file)) {
+          $filePath = Join-Path "aliases" $file
+          if (-not (Test-Path $filePath)) {
             $missingFiles += $file
           }
         }
         
         if ($missingFiles.Count -gt 0) {
-          Write-Host "Missing files: $($missingFiles -join ', ')" -ForegroundColor Red
+          Write-Host "Missing files in aliases directory: $($missingFiles -join ', ')" -ForegroundColor Red
           exit 1
         }
         
-        Write-Host "All $($expectedFiles.Count) expected files were generated successfully!" -ForegroundColor Green
+        Write-Host "All $($expectedFiles.Count) expected files were generated successfully in aliases directory!" -ForegroundColor Green
         
     - name: Test sample batch files functionality  
       run: |
@@ -51,32 +52,31 @@ jobs:
         cd test-repo
         git init
         
-        # Test basic functionality of a few generated aliases
+        # Test basic functionality of a few generated aliases from aliases directory
         echo "test content" > test.txt
         
         # Test st.bat (git status)
-        ..\st.bat
+        ..\aliases\st.bat
         
         # Test a.bat (git add .)
-        ..\a.bat
+        ..\aliases\a.bat
         
         # Test c.bat (git commit -m)
-        ..\c.bat "Initial commit"
+        ..\aliases\c.bat "Initial commit"
         
         # Test l.bat (git log)
-        ..\l.bat
+        ..\aliases\l.bat
         
         Write-Host "Basic alias functionality test completed!" -ForegroundColor Green
 
     - name: Count generated files
       run: |
-        $allBatFiles = Get-ChildItem -Filter "*.bat"
-        $generatedFiles = $allBatFiles | Where-Object { $_.Name -ne "generate.bat" }
-        Write-Host "Total generated .bat files: $($generatedFiles.Count)"
+        $aliasFiles = Get-ChildItem -Path "aliases" -Filter "*.bat" -ErrorAction SilentlyContinue
+        Write-Host "Total generated .bat files in aliases directory: $($aliasFiles.Count)"
         
-        if ($generatedFiles.Count -ne 35) {
-          Write-Host "Expected 35 files but found $($generatedFiles.Count)" -ForegroundColor Red
+        if ($aliasFiles.Count -ne 35) {
+          Write-Host "Expected 35 files but found $($aliasFiles.Count) in aliases directory" -ForegroundColor Red
           exit 1
         }
         
-        Write-Host "Correct number of files generated (35)!" -ForegroundColor Green
+        Write-Host "Correct number of files generated (35) in aliases directory!" -ForegroundColor Green

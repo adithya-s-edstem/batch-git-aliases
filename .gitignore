@@ -1,3 +1,2 @@
 # Generated batch files
-*.bat
-!generate.bat
+aliases/
