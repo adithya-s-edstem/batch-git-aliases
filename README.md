@@ -1,6 +1,10 @@
 # batch-git-aliases
 
-> **🤖 Copilot-Managed Repository**: This repository is fully managed by GitHub Copilot as a testing ground for AI-powered development workflows. All code, commits, pull requests, CI pipelines, and documentation are generated and maintained by Copilot to demonstrate autonomous development capabilities.
+> **🤖 Copilot-Managed Repository**: This repository is fully managed by GitHub Copilot as a testing ground for AI-powered development workflows. All code, commits, pull requests, CI pipelines, and documentation are generated and maintained by Copilot to demonstrate autonomous development capabilities. See [PR #1](../../pull/1) as a sample of Copilot's autonomous development process.
+
+## Related Projects
+
+See [bash-things](https://github.com/adithya-s-edstem/bash-things) for a human coded version for bash.
 
 A comprehensive collection of Windows batch file shortcuts for common Git commands. This script generates 35 tiny batch files that serve as quick aliases for Git operations.
 
@@ -125,7 +129,3 @@ rl                    # Show reflog
 bl file.txt           # Blame specific file
 df                    # Show staged changes
 ```
-
-## Related Projects
-
-See [bash-things](https://github.com/adithya-s-edstem/bash-things) for a human coded version for bash.
