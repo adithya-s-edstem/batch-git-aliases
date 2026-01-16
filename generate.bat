@@ -15,10 +15,10 @@ echo @echo off > aliases\pl.bat
 echo git pull >> aliases\pl.bat
 echo Generated: aliases\pl.bat
 
-REM Create ps.bat - git push current branch
-echo @echo off > aliases\ps.bat
-echo git push >> aliases\ps.bat
-echo Generated: aliases\ps.bat
+REM Create gps.bat - git push current branch (renamed from ps to avoid PowerShell conflict)
+echo @echo off > aliases\gps.bat
+echo git push >> aliases\gps.bat
+echo Generated: aliases\gps.bat
 
 REM Create st.bat - git status
 echo @echo off > aliases\st.bat
@@ -90,10 +90,10 @@ echo @echo off > aliases\ig.bat
 echo git init >> aliases\ig.bat
 echo Generated: aliases\ig.bat
 
-REM Create rm.bat - show remote repositories
-echo @echo off > aliases\rm.bat
-echo git remote -v >> aliases\rm.bat
-echo Generated: aliases\rm.bat
+REM Create grm.bat - show remote repositories (renamed from rm to avoid PowerShell conflict)
+echo @echo off > aliases\grm.bat
+echo git remote -v >> aliases\grm.bat
+echo Generated: aliases\grm.bat
 
 REM Create tg.bat - list tags
 echo @echo off > aliases\tg.bat
@@ -115,10 +115,10 @@ echo @echo off > aliases\rba.bat
 echo git rebase --abort >> aliases\rba.bat
 echo Generated: aliases\rba.bat
 
-REM Create cp.bat - cherry-pick (usage: cp commit-hash)
-echo @echo off > aliases\cp.bat
-echo git cherry-pick %%* >> aliases\cp.bat
-echo Generated: aliases\cp.bat
+REM Create gcp.bat - cherry-pick (renamed from cp to avoid PowerShell conflict) (usage: gcp commit-hash)
+echo @echo off > aliases\gcp.bat
+echo git cherry-pick %%* >> aliases\gcp.bat
+echo Generated: aliases\gcp.bat
 
 REM Create cb.bat - create and switch to new branch (usage: cb new-branch-name)
 echo @echo off > aliases\cb.bat
@@ -160,10 +160,10 @@ echo @echo off > aliases\clean.bat
 echo git clean %%* >> aliases\clean.bat
 echo Generated: aliases\clean.bat
 
-REM Create ls.bat - short log (last 10 commits)
-echo @echo off > aliases\ls.bat
-echo git log --oneline -10 >> aliases\ls.bat
-echo Generated: aliases\ls.bat
+REM Create gls.bat - short log (last 10 commits) (renamed from ls to avoid PowerShell conflict)
+echo @echo off > aliases\gls.bat
+echo git log --oneline -10 >> aliases\gls.bat
+echo Generated: aliases\gls.bat
 
 REM Create lp.bat - log with patches
 echo @echo off > aliases\lp.bat
@@ -192,7 +192,7 @@ echo Total: 35 git command aliases generated for faster git operations!
 echo.
 echo Copy all .bat files from the 'aliases' directory to a directory in your PATH to use them as commands:
 echo - pl.bat            : git pull
-echo - ps.bat            : git push  
+echo - gps.bat           : git push (renamed from ps.bat for PowerShell compatibility)
 echo - st.bat            : git status
 echo - a.bat             : git add .
 echo - c.bat             : git commit -m "message"
@@ -207,12 +207,12 @@ echo - f.bat             : git fetch
 echo - m.bat             : git merge branch-name
 echo - cl.bat            : git clone repo-url
 echo - ig.bat            : git init
-echo - rm.bat            : git remote -v
+echo - grm.bat           : git remote -v (renamed from rm.bat for PowerShell compatibility)
 echo - tg.bat            : git tag
 echo - rb.bat            : git rebase branch-name or -i HEAD~3
 echo - rbc.bat           : git rebase --continue
 echo - rba.bat           : git rebase --abort
-echo - cp.bat            : git cherry-pick commit-hash
+echo - gcp.bat           : git cherry-pick commit-hash (renamed from cp.bat for PowerShell compatibility)
 echo - cb.bat            : git checkout -b new-branch-name
 echo - shl.bat           : git stash list
 echo - shd.bat           : git stash drop stash@{0}
@@ -221,7 +221,7 @@ echo - sw.bat            : git show commit-hash
 echo - bl.bat            : git blame filename
 echo - rl.bat            : git reflog
 echo - clean.bat         : git clean (with parameters)
-echo - ls.bat            : git log --oneline -10
+echo - gls.bat           : git log --oneline -10 (renamed from ls.bat for PowerShell compatibility)
 echo - lp.bat            : git log -p
 echo - df.bat            : git diff --staged
 echo - amend.bat         : git commit --amend
@@ -233,10 +233,10 @@ echo   a                   (instead of git add .)
 echo   c "my changes"      (instead of git commit -m "my changes")
 echo   co main             (instead of git checkout main)
 echo   pl                  (instead of git pull)
-echo   ps                  (instead of git push)
+echo   gps                 (instead of git push)
 echo   cb feature-branch   (instead of git checkout -b feature-branch)
 echo   rb -i HEAD~3        (instead of git rebase -i HEAD~3)
-echo   cp abc123           (instead of git cherry-pick abc123)
+echo   gcp abc123          (instead of git cherry-pick abc123)
 echo   shl                 (instead of git stash list)
 echo   sw abc123           (instead of git show abc123)
 echo   amend               (instead of git commit --amend)
