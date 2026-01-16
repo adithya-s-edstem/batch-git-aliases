@@ -16,6 +16,12 @@ A comprehensive collection of Windows batch file shortcuts for common Git comman
 2. Copy all `.bat` files from the `aliases/` folder to a directory in your PATH
 3. Use short commands instead of full git commands (e.g., `st` instead of `git status`)
 
+**Note:** Some aliases have been renamed to avoid conflicts with PowerShell built-in commands:
+- `gps` instead of `ps` (git push) - avoids conflict with PowerShell's Get-Process
+- `grm` instead of `rm` (git remote) - avoids conflict with PowerShell's Remove-Item
+- `gls` instead of `ls` (git log short) - avoids conflict with PowerShell's Get-ChildItem
+- `gcp` instead of `cp` (git cherry-pick) - avoids conflict with PowerShell's Copy-Item
+
 ## Commands
 
 ### 🔄 **Basic Operations**
@@ -25,7 +31,7 @@ A comprehensive collection of Windows batch file shortcuts for common Git comman
 | `a` | `git add .` | Add all changes to staging |
 | `c "message"` | `git commit -m "message"` | Commit with message |
 | `pl` | `git pull` | Pull from current branch |
-| `ps` | `git push` | Push to current branch |
+| `gps` | `git push` | Push to current branch |
 | `f` | `git fetch` | Fetch from remote |
 
 ### 🌿 **Branch Management**
@@ -40,7 +46,7 @@ A comprehensive collection of Windows batch file shortcuts for common Git comman
 | Alias | Git Command | Description |
 |-------|-------------|-------------|
 | `l` | `git log --oneline --graph --decorate` | Pretty log with graph |
-| `ls` | `git log --oneline -10` | Short log (last 10 commits) |
+| `gls` | `git log --oneline -10` | Short log (last 10 commits) |
 | `lp` | `git log -p` | Log with patches |
 | `sw commit-hash` | `git show commit-hash` | Show specific commit |
 | `bl filename` | `git blame filename` | Show file blame |
@@ -75,7 +81,7 @@ A comprehensive collection of Windows batch file shortcuts for common Git comman
 ### 🍒 **Advanced Operations**
 | Alias | Git Command | Description |
 |-------|-------------|-------------|
-| `cp commit-hash` | `git cherry-pick commit-hash` | Cherry-pick commit |
+| `gcp commit-hash` | `git cherry-pick commit-hash` | Cherry-pick commit |
 | `clean -f` | `git clean -f` | Clean untracked files |
 
 ### 🏗️ **Repository Management**
@@ -83,7 +89,7 @@ A comprehensive collection of Windows batch file shortcuts for common Git comman
 |-------|-------------|-------------|
 | `cl repo-url` | `git clone repo-url` | Clone repository |
 | `ig` | `git init` | Initialize git repository |
-| `rm` | `git remote -v` | Show remote repositories |
+| `grm` | `git remote -v` | Show remote repositories |
 | `tg` | `git tag` | List tags |
 
 ## Usage Examples
@@ -93,7 +99,7 @@ A comprehensive collection of Windows batch file shortcuts for common Git comman
 st                    # Check status
 a                     # Stage all changes
 c "Add new feature"   # Commit with message
-ps                    # Push changes
+gps                   # Push changes
 ```
 
 ### Branch Operations
@@ -117,7 +123,7 @@ shc                   # Clear all stashes
 ```bash
 rb -i HEAD~3          # Interactive rebase last 3 commits
 rbc                   # Continue after resolving conflicts
-cp abc123             # Cherry-pick specific commit
+gcp abc123            # Cherry-pick specific commit
 sw abc123             # Show commit details
 amend                 # Amend last commit
 undo                  # Undo last commit (keep changes)
@@ -126,7 +132,7 @@ undo                  # Undo last commit (keep changes)
 ### History & Inspection
 ```bash
 l                     # Pretty log with graph
-ls                    # Quick log (last 10)
+gls                   # Quick log (last 10)
 rl                    # Show reflog
 bl file.txt           # Blame specific file
 df                    # Show staged changes

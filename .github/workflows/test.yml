@@ -22,10 +22,10 @@ jobs:
       run: |
         # Check if expected .bat files were created in aliases directory
         $expectedFiles = @(
-          'pl.bat', 'ps.bat', 'st.bat', 'a.bat', 'c.bat', 'l.bat', 'br.bat', 'co.bat', 'd.bat', 'rs.bat',
-          'sh.bat', 'pop.bat', 'f.bat', 'm.bat', 'cl.bat', 'ig.bat', 'rm.bat', 'tg.bat',
-          'rb.bat', 'rbc.bat', 'rba.bat', 'cp.bat', 'cb.bat', 'shl.bat', 'shd.bat', 'shc.bat',
-          'sw.bat', 'bl.bat', 'rl.bat', 'clean.bat', 'ls.bat', 'lp.bat', 'df.bat', 'amend.bat', 'undo.bat'
+          'pl.bat', 'gps.bat', 'st.bat', 'a.bat', 'c.bat', 'l.bat', 'br.bat', 'co.bat', 'd.bat', 'rs.bat',
+          'sh.bat', 'pop.bat', 'f.bat', 'm.bat', 'cl.bat', 'ig.bat', 'grm.bat', 'tg.bat',
+          'rb.bat', 'rbc.bat', 'rba.bat', 'gcp.bat', 'cb.bat', 'shl.bat', 'shd.bat', 'shc.bat',
+          'sw.bat', 'bl.bat', 'rl.bat', 'clean.bat', 'gls.bat', 'lp.bat', 'df.bat', 'amend.bat', 'undo.bat'
         )
         
         $missingFiles = @()
