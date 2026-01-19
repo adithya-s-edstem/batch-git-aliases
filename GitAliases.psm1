@@ -8,9 +8,7 @@
 # like 'df' and 'sh' due to PowerShell's command precedence (functions > cmdlets > external apps).
 $conflictingAliases = @('gps')
 foreach ($alias in $conflictingAliases) {
-    if (Get-Alias -Name $alias -ErrorAction SilentlyContinue) {
-        Remove-Item "Alias:\$alias" -Force -ErrorAction SilentlyContinue
-    }
+    Remove-Item "Alias:\$alias" -Force -ErrorAction SilentlyContinue
 }
 
 # Basic Operations

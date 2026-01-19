@@ -36,7 +36,15 @@ if (-not (Test-Path $profilePath)) {
 }
 
 # Check if module is already imported in profile
-$profileContent = Get-Content $profilePath -Raw -ErrorAction SilentlyContinue
+# Handle both empty and non-existent profile files
+$profileContent = ""
+if (Test-Path $profilePath) {
+    $profileContent = Get-Content $profilePath -Raw -ErrorAction SilentlyContinue
+    if ($null -eq $profileContent) {
+        $profileContent = ""
+    }
+}
+
 # Use flexible regex to match any Import-Module line referencing GitAliases
 if ($profileContent -match 'Import-Module.*GitAliases') {
     Write-Host "Git Aliases module is already configured in your profile!" -ForegroundColor Yellow
