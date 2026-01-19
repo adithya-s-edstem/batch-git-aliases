@@ -14,7 +14,7 @@ foreach ($alias in $conflictingAliases) {
 # Basic Operations
 function st { git status @args }
 function a { git add . @args }
-function c { git commit -m @args }
+function c { git commit -m "$args" }
 function pl { git pull @args }
 function gps { git push @args }
 function f { git fetch @args }

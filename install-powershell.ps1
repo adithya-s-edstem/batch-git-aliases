@@ -46,7 +46,8 @@ if (Test-Path $profilePath) {
 }
 
 # Use flexible regex to match any Import-Module line referencing GitAliases
-if ($profileContent -match 'Import-Module.*GitAliases') {
+# Pattern avoids matching commented lines by requiring non-comment at start
+if ($profileContent -match '(?m)^\s*[^#]*Import-Module.*GitAliases') {
     Write-Host "Git Aliases module is already configured in your profile!" -ForegroundColor Yellow
     Write-Host ""
 } else {
