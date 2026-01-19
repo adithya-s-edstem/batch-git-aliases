@@ -152,3 +152,26 @@ rl                    # Show reflog
 bl file.txt           # Blame specific file
 df                    # Show staged changes
 ```
+
+
+## Troubleshooting
+
+### PowerShell: `gps` still shows process list
+
+If `gps` still runs `Get-Process` instead of `git push`:
+
+1. Make sure you've run the installation script: `.\install-powershell.ps1`
+2. Reload your PowerShell profile: `. $PROFILE`
+3. Verify the module is loaded: `Get-Module GitAliases`
+4. If still not working, manually check your profile file location: `$PROFILE`
+
+The module automatically removes conflicting built-in PowerShell aliases (like `gps` for `Get-Process`) when it's imported.
+
+### CMD: Batch files not found
+
+If batch file aliases aren't working in CMD:
+
+1. Run `generate.bat` to create the alias files
+2. Copy all `.bat` files from the `aliases/` directory to a folder in your PATH
+3. Verify the folder is in your PATH: `echo %PATH%`
+4. Open a new CMD window to refresh the environment
