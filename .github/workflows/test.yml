@@ -144,8 +144,8 @@ jobs:
         Import-Module ..\GitAliases.psm1
         
         # Test st (git status)
-        $statusOutput = st
-        if (-not ($statusOutput -like '*On branch*')) {
+        $statusOutput = st | Out-String
+        if ($statusOutput -notlike '*On branch*') {
           Write-Host "st command failed" -ForegroundColor Red
           exit 1
         }
@@ -154,8 +154,8 @@ jobs:
         # Test a (git add .)
         "test content" | Out-File test.txt
         a
-        $status = git status --porcelain
-        if (-not ($status -like '*test.txt*')) {
+        $status = git status --porcelain | Out-String
+        if ($status -notlike '*test.txt*') {
           Write-Host "a command failed" -ForegroundColor Red
           exit 1
         }
@@ -163,8 +163,8 @@ jobs:
         
         # Test c with unquoted message
         c test commit message
-        $commitMsg = git log --oneline -1
-        if (-not ($commitMsg -like '*test commit message*')) {
+        $commitMsg = git log --oneline -1 | Out-String
+        if ($commitMsg -notlike '*test commit message*') {
           Write-Host "c command with unquoted message failed" -ForegroundColor Red
           exit 1
         }
@@ -174,15 +174,15 @@ jobs:
         "test2" | Out-File test2.txt
         a
         c "quoted commit message"
-        $commitMsg2 = git log --oneline -1
-        if (-not ($commitMsg2 -like '*quoted commit message*')) {
+        $commitMsg2 = git log --oneline -1 | Out-String
+        if ($commitMsg2 -notlike '*quoted commit message*') {
           Write-Host "c command with quoted message failed" -ForegroundColor Red
           exit 1
         }
         Write-Host "✓ c (git commit) works with quoted message" -ForegroundColor Green
         
         # Test br (git branch -a)
-        $branchOutput = br
+        $branchOutput = br | Out-String
         if ($branchOutput -notlike '*master*' -and $branchOutput -notlike '*main*') {
           Write-Host "br command failed" -ForegroundColor Red
           exit 1
@@ -190,8 +190,8 @@ jobs:
         Write-Host "✓ br (git branch -a) works" -ForegroundColor Green
         
         # Test l (git log)
-        $logOutput = l
-        if (-not ($logOutput -like '*quoted commit message*')) {
+        $logOutput = l | Out-String
+        if ($logOutput -notlike '*quoted commit message*') {
           Write-Host "l command failed" -ForegroundColor Red
           exit 1
         }
