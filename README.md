@@ -6,11 +6,26 @@
 
 See [bash-things](https://github.com/adithya-s-edstem/bash-things) for a human coded version for bash.
 
-A comprehensive collection of Windows batch file shortcuts for common Git commands. This script generates 35 tiny batch files that serve as quick aliases for Git operations.
+A comprehensive collection of git command shortcuts for Windows. Provides both PowerShell functions and batch file aliases for common Git operations.
 
-**All generated `.bat` files are organized in a dedicated `aliases/` directory for easy selection and copying.**
+**PowerShell Support:** Includes a PowerShell module (`GitAliases.psm1`) with 35 git command shortcuts that work correctly in PowerShell without conflicts with built-in cmdlets.
+
+**CMD Support:** Batch files (`.bat`) are organized in a dedicated `aliases/` directory for easy selection and copying when using the traditional Command Prompt.
 
 ## Quick Start
+
+### For PowerShell (Windows 11/10) - Recommended
+
+1. Run `install-powershell.ps1` to automatically configure git aliases for PowerShell
+   ```powershell
+   .\install-powershell.ps1
+   ```
+2. Restart PowerShell or run `. $PROFILE` to load the aliases
+3. Use short commands instead of full git commands (e.g., `st` instead of `git status`)
+
+**Why PowerShell module?** PowerShell has built-in aliases that conflict with `.bat` files. The `gps` command, for example, is PowerShell's alias for `Get-Process`. By using a PowerShell module with functions, these aliases work correctly without conflicts.
+
+### For CMD.exe (Traditional Command Prompt)
 
 1. Run `generate.bat` to create all alias files in the `aliases/` directory
 2. Copy all `.bat` files from the `aliases/` folder to a directory in your PATH
