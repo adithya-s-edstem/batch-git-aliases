@@ -3,7 +3,9 @@
 # Import this module in your PowerShell profile to use these aliases
 
 # Remove conflicting built-in PowerShell aliases if they exist
-# Only remove aliases that we're redefining to avoid unnecessary side effects
+# Note: We only remove 'gps' as it's the only PowerShell alias that conflicts with our functions
+# (gps is built-in alias for Get-Process). Our functions automatically override external applications
+# like 'df' and 'sh' due to PowerShell's command precedence (functions > cmdlets > external apps).
 $conflictingAliases = @('gps')
 foreach ($alias in $conflictingAliases) {
     if (Get-Alias -Name $alias -ErrorAction SilentlyContinue) {

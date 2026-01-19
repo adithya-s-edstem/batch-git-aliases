@@ -78,7 +78,7 @@ Write-Host "  rb      - git rebase" -ForegroundColor White
 Write-Host "  gcp     - git cherry-pick" -ForegroundColor White
 Write-Host "  amend   - git commit --amend" -ForegroundColor White
 Write-Host "  undo    - git reset --soft HEAD~1" -ForegroundColor White
-Write-Host "  ...and 15 more!" -ForegroundColor White
+Write-Host "  ...and more!" -ForegroundColor White
 Write-Host ""
 Write-Host "For full list, see README.md" -ForegroundColor Gray
 Write-Host ""
