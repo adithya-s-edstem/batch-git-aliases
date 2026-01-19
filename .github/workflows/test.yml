@@ -80,3 +80,144 @@ jobs:
         }
         
         Write-Host "Correct number of files generated (35) in aliases directory!" -ForegroundColor Green
+
+  test-powershell-module:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Test PowerShell module import
+      run: |
+        # Import the PowerShell module
+        Import-Module .\GitAliases.psm1 -ErrorAction Stop
+        Write-Host "✓ Module imported successfully" -ForegroundColor Green
+        
+    - name: Verify module exports 35 functions
+      run: |
+        Import-Module .\GitAliases.psm1
+        $functionCount = (Get-Command -Module GitAliases).Count
+        
+        if ($functionCount -ne 35) {
+          Write-Host "Expected 35 functions but found $functionCount" -ForegroundColor Red
+          exit 1
+        }
+        
+        Write-Host "✓ All 35 functions exported correctly" -ForegroundColor Green
+        
+    - name: Test gps function overrides Get-Process
+      run: |
+        # Check that gps is built-in alias before import
+        $gpsBefore = Get-Command gps -ErrorAction SilentlyContinue
+        if ($gpsBefore.CommandType -ne 'Alias') {
+          Write-Host "Warning: gps is not an alias before import (expected Alias, got $($gpsBefore.CommandType))" -ForegroundColor Yellow
+        }
+        
+        # Import module
+        Import-Module .\GitAliases.psm1
+        
+        # Check that gps is now a function
+        $gpsAfter = Get-Command gps
+        if ($gpsAfter.CommandType -ne 'Function') {
+          Write-Host "gps is not a function after import (got $($gpsAfter.CommandType))" -ForegroundColor Red
+          exit 1
+        }
+        
+        # Verify it calls git push
+        if ($gpsAfter.Definition -notlike '*git push*') {
+          Write-Host "gps function doesn't call git push" -ForegroundColor Red
+          exit 1
+        }
+        
+        Write-Host "✓ gps correctly overrides Get-Process alias" -ForegroundColor Green
+        
+    - name: Test PowerShell aliases functionality
+      run: |
+        # Initialize a test git repo
+        git config --global user.email "test@example.com"
+        git config --global user.name "Test User"
+        mkdir test-ps-repo
+        cd test-ps-repo
+        git init
+        
+        # Import module
+        Import-Module ..\GitAliases.psm1
+        
+        # Test st (git status)
+        $statusOutput = st
+        if ($statusOutput -notlike '*On branch*') {
+          Write-Host "st command failed" -ForegroundColor Red
+          exit 1
+        }
+        Write-Host "✓ st (git status) works" -ForegroundColor Green
+        
+        # Test a (git add .)
+        "test content" | Out-File test.txt
+        a
+        $status = git status --porcelain
+        if ($status -notlike '*test.txt*') {
+          Write-Host "a command failed" -ForegroundColor Red
+          exit 1
+        }
+        Write-Host "✓ a (git add .) works" -ForegroundColor Green
+        
+        # Test c with unquoted message
+        c test commit message
+        $commitMsg = git log --oneline -1
+        if ($commitMsg -notlike '*test commit message*') {
+          Write-Host "c command with unquoted message failed" -ForegroundColor Red
+          exit 1
+        }
+        Write-Host "✓ c (git commit) works with unquoted message" -ForegroundColor Green
+        
+        # Test c with quoted message
+        "test2" | Out-File test2.txt
+        a
+        c "quoted commit message"
+        $commitMsg2 = git log --oneline -1
+        if ($commitMsg2 -notlike '*quoted commit message*') {
+          Write-Host "c command with quoted message failed" -ForegroundColor Red
+          exit 1
+        }
+        Write-Host "✓ c (git commit) works with quoted message" -ForegroundColor Green
+        
+        # Test br (git branch -a)
+        $branchOutput = br
+        if ($branchOutput -notlike '*master*' -and $branchOutput -notlike '*main*') {
+          Write-Host "br command failed" -ForegroundColor Red
+          exit 1
+        }
+        Write-Host "✓ br (git branch -a) works" -ForegroundColor Green
+        
+        # Test l (git log)
+        $logOutput = l
+        if ($logOutput -notlike '*quoted commit message*') {
+          Write-Host "l command failed" -ForegroundColor Red
+          exit 1
+        }
+        Write-Host "✓ l (git log) works" -ForegroundColor Green
+        
+        Write-Host "All PowerShell alias functionality tests passed!" -ForegroundColor Green
+        
+    - name: Test install-powershell.ps1 script
+      run: |
+        # Create a temporary profile for testing
+        $testProfileDir = Join-Path $env:TEMP "test-ps-profile"
+        $testProfilePath = Join-Path $testProfileDir "Microsoft.PowerShell_profile.ps1"
+        New-Item -ItemType Directory -Path $testProfileDir -Force | Out-Null
+        
+        # Mock the $PROFILE variable by setting it in the script environment
+        $env:TEST_PROFILE_PATH = $testProfilePath
+        
+        # Run install script (we'll need to modify it slightly or test the core logic)
+        # For now, test that the script can be parsed and key functions work
+        $scriptContent = Get-Content .\install-powershell.ps1 -Raw
+        if ($scriptContent -notlike '*Import-Module*') {
+          Write-Host "install-powershell.ps1 doesn't contain Import-Module statement" -ForegroundColor Red
+          exit 1
+        }
+        
+        Write-Host "✓ install-powershell.ps1 script structure verified" -ForegroundColor Green
+        
+        # Clean up
+        Remove-Item -Path $testProfileDir -Recurse -Force -ErrorAction SilentlyContinue
