@@ -3,7 +3,8 @@
 # Import this module in your PowerShell profile to use these aliases
 
 # Remove conflicting built-in PowerShell aliases if they exist
-$conflictingAliases = @('gps', 'gcb', 'gcs', 'gcm', 'gmo', 'gsn', 'gp')
+# Only remove aliases that we're redefining to avoid unnecessary side effects
+$conflictingAliases = @('gps')
 foreach ($alias in $conflictingAliases) {
     if (Get-Alias -Name $alias -ErrorAction SilentlyContinue) {
         Remove-Item "Alias:\$alias" -Force -ErrorAction SilentlyContinue

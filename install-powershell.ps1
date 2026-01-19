@@ -12,7 +12,7 @@ $modulePath = Join-Path $scriptDir "GitAliases.psm1"
 # Check if the module file exists
 if (-not (Test-Path $modulePath)) {
     Write-Host "Error: GitAliases.psm1 not found in $scriptDir" -ForegroundColor Red
-    exit 1
+    return
 }
 
 Write-Host "Found GitAliases.psm1 module" -ForegroundColor Green
@@ -37,13 +37,13 @@ if (-not (Test-Path $profilePath)) {
 
 # Check if module is already imported in profile
 $profileContent = Get-Content $profilePath -Raw -ErrorAction SilentlyContinue
-$importLine = "Import-Module '$modulePath'"
-
-if ($profileContent -match [regex]::Escape($importLine)) {
+# Use flexible regex to match any Import-Module line referencing GitAliases
+if ($profileContent -match 'Import-Module.*GitAliases') {
     Write-Host "Git Aliases module is already configured in your profile!" -ForegroundColor Yellow
     Write-Host ""
 } else {
     # Add import statement to profile
+    $importLine = "Import-Module '$modulePath'"
     Write-Host "Adding Git Aliases module to your PowerShell profile..." -ForegroundColor Cyan
     Add-Content -Path $profilePath -Value "`n# Git Aliases Module"
     Add-Content -Path $profilePath -Value $importLine
