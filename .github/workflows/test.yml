@@ -124,7 +124,7 @@ jobs:
         }
         
         # Verify it calls git push
-        if ($gpsAfter.Definition -notlike '*git push*') {
+        if (-not ($gpsAfter.Definition -like '*git push*')) {
           Write-Host "gps function doesn't call git push" -ForegroundColor Red
           exit 1
         }
@@ -145,7 +145,7 @@ jobs:
         
         # Test st (git status)
         $statusOutput = st
-        if ($statusOutput -notlike '*On branch*') {
+        if (-not ($statusOutput -like '*On branch*')) {
           Write-Host "st command failed" -ForegroundColor Red
           exit 1
         }
@@ -155,7 +155,7 @@ jobs:
         "test content" | Out-File test.txt
         a
         $status = git status --porcelain
-        if ($status -notlike '*test.txt*') {
+        if (-not ($status -like '*test.txt*')) {
           Write-Host "a command failed" -ForegroundColor Red
           exit 1
         }
@@ -164,7 +164,7 @@ jobs:
         # Test c with unquoted message
         c test commit message
         $commitMsg = git log --oneline -1
-        if ($commitMsg -notlike '*test commit message*') {
+        if (-not ($commitMsg -like '*test commit message*')) {
           Write-Host "c command with unquoted message failed" -ForegroundColor Red
           exit 1
         }
@@ -175,7 +175,7 @@ jobs:
         a
         c "quoted commit message"
         $commitMsg2 = git log --oneline -1
-        if ($commitMsg2 -notlike '*quoted commit message*') {
+        if (-not ($commitMsg2 -like '*quoted commit message*')) {
           Write-Host "c command with quoted message failed" -ForegroundColor Red
           exit 1
         }
@@ -191,7 +191,7 @@ jobs:
         
         # Test l (git log)
         $logOutput = l
-        if ($logOutput -notlike '*quoted commit message*') {
+        if (-not ($logOutput -like '*quoted commit message*')) {
           Write-Host "l command failed" -ForegroundColor Red
           exit 1
         }
@@ -212,7 +212,7 @@ jobs:
         # Run install script (we'll need to modify it slightly or test the core logic)
         # For now, test that the script can be parsed and key functions work
         $scriptContent = Get-Content .\install-powershell.ps1 -Raw
-        if ($scriptContent -notlike '*Import-Module*') {
+        if (-not ($scriptContent -like '*Import-Module*')) {
           Write-Host "install-powershell.ps1 doesn't contain Import-Module statement" -ForegroundColor Red
           exit 1
         }
